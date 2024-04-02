@@ -1,11 +1,15 @@
 buildscript {
+    ext.safeExtGet = { prop, fallback ->
+        rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+    }
+
     ext {
-        kotlinVersion = '1.6.0'
         buildToolsVersion = '29.0.2'
         compileSdkVersion = 29
         targetSdkVersion = 29
         minSdkVersion = 18
     }
+    ext.kotlinVersion = safeExtGet('kotlinVersion', '1.6.0')
     ext.detoxKotlinVersion = ext.kotlinVersion
 
     repositories {
@@ -20,7 +24,7 @@ buildscript {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 
 def DEFAULT_COMPILE_SDK_VERSION = 28
 def DEFAULT_BUILD_TOOLS_VERSION = "28.0.3"
